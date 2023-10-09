@@ -4,6 +4,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,6 +12,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.appcompat.app.AppCompatActivity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
 
 import java.util.Random;
 
@@ -60,6 +66,12 @@ public class MainActivity extends AppCompatActivity {
                     noti.show();
                     builder.setNegativeButton("Aceptar", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
+                            Intent intent = new Intent(MainActivity.this,RecordActivity.class);
+
+                            Record jug = new Record("hola",intentos);
+                            startActivity(intent);
+
+                            RecordActivity.records.add(jug);
                             MainActivity.super.onRestart();
                         }});
                     builder.show();
