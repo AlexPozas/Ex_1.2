@@ -15,14 +15,17 @@ public class Record {
     }
 
     public void setNom(String nom) {
+
         this.nom = nom;
     }
 
     public int getIntents() {
+
         return intents;
     }
 
     public void setIntents(int intents) {
+
         this.intents = intents;
     }
 }

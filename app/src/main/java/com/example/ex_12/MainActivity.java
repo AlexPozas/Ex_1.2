@@ -12,11 +12,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import androidx.appcompat.app.AppCompatActivity;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.EditText;
 
 import java.util.Random;
 
@@ -39,8 +34,12 @@ public class MainActivity extends AppCompatActivity {
         numero_aleatorio.setText(String.valueOf(valorDado));
         Toast noti= Toast.makeText(this,"G",Toast.LENGTH_SHORT);
         final Button button = findViewById(R.id.boton);
+        final Button ran = findViewById(R.id.ranking);
+
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        AlertDialog.Builder builder2 = new AlertDialog.Builder(MainActivity.this);
         AlertDialog dialog = builder.create();
+        AlertDialog dialog2 = builder2.create();
 
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -64,19 +63,39 @@ public class MainActivity extends AppCompatActivity {
                     noti.setText("Has acertat"+" Intentos = " +intentos);
                     builder.setMessage("Your score: "+ intentos+" points").setTitle("Congratulation!!");
                     noti.show();
+                    final EditText input = new EditText(MainActivity.this);
+                    builder2.setMessage("Introdueix el teu nom per guardar el regord");
+                    builder2.setView(input);
+                    Intent intent = new Intent(MainActivity.this,RecordActivity.class);
+                    String nom= input.getText().toString();
+                    builder2.setPositiveButton("Aceptar", new DialogInterface.OnClickListener(){
+                        public void onClick(DialogInterface dialog, int id) {
+
+                            Record jug = new Record(nom,intentos);
+                            RecordActivity.records.add(jug);
+                            startActivity(intent);
+                        }
+                    });
                     builder.setNegativeButton("Aceptar", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            Intent intent = new Intent(MainActivity.this,RecordActivity.class);
 
-                            Record jug = new Record("hola",intentos);
-                            startActivity(intent);
+                            builder2.show();
 
-                            RecordActivity.records.add(jug);
-                            MainActivity.super.onRestart();
                         }});
                     builder.show();
-
                 }
+            }
+
+
+        });
+        ran.setOnClickListener(new View.OnClickListener(){
+
+
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this,RecordActivity.class);
+                startActivity(intent);
+
             }
         });
     }
